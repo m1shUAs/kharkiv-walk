@@ -1,0 +1,320 @@
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Press+Start+2P&display=swap");
+
+:root {
+  color-scheme: dark;
+
+  /* Палітра NES */
+  --nes-black: #0c0e0c;
+  --nes-white: #eaebea;
+  --nes-beige: #efc094;
+  --nes-bg-navy: #141519;
+  --nes-bg-plum: #585360;
+  --nes-bg-wine: #58363b;
+  --nes-cyan: #12c5c5;
+  --nes-cream: #fff7e9;
+  --nes-silver: #dfe0df;
+
+  --nes-font-display: "Oswald", "Arial Narrow", sans-serif;
+  --nes-font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --nes-font-mono: "Anonymous Pro", "Consolas", monospace;
+  --nes-font-pixel: "Press Start 2P", "Anonymous Pro", monospace;
+
+  --nes-radius-md: 12px;
+  --nes-radius-lg: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  background: var(--nes-black);
+  color: var(--nes-white);
+  font-family: var(--nes-font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nes-logo { font-family: var(--nes-font-body); font-weight: 400; letter-spacing: 0.02em; color: var(--nes-white); }
+.nes-pixelated { image-rendering: crisp-edges; image-rendering: pixelated; }
+
+.app {
+  height: 100vh;
+  height: var(--app-h, 100dvh);
+  max-width: 480px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: minmax(150px, 28%) 1fr auto;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+/* ---------- Ілюстрація місця ---------- */
+.scene { position: relative; overflow: hidden; }
+
+#scene { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.bar {
+  position: absolute; z-index: 2; top: 12px; left: 16px;
+  display: inline-flex; align-items: baseline; gap: 12px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(12, 14, 12, 0.78);
+  border: 1px solid rgba(88, 83, 96, 0.6);
+}
+.bar-title {
+  font-family: var(--nes-font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--nes-beige);
+}
+
+.progress {
+  position: absolute; z-index: 2;
+  left: 16px; right: 16px; bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(12, 14, 12, 0.78);
+  border: 1px solid rgba(88, 83, 96, 0.6);
+}
+.segs { display: flex; gap: 2px; flex: 1; }
+.seg { height: 6px; flex: 1; background: var(--nes-bg-plum); border-radius: 1px; }
+.seg.on { background: var(--nes-beige); }
+.count {
+  font-family: var(--nes-font-pixel);
+  font-size: 10px;
+  color: var(--nes-beige);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Додаткове фото точки ---------- */
+.extra { margin-top: 24px; }
+.extra[hidden] { display: none; }
+.extra-img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--nes-radius-md);
+}
+
+/* ---------- Таксі ---------- */
+.taxi {
+  margin-top: 16px;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  border-radius: var(--nes-radius-md);
+  background: var(--nes-black);
+  border: 1px solid var(--nes-amber);
+}
+.taxi[hidden] { display: none; }
+.taxi-top { display: flex; align-items: center; gap: 16px; }
+.taxi-icon { flex: none; width: 124px; height: auto; }
+.taxi-info { min-width: 0; flex: 1; }
+.taxi .eyebrow { margin-bottom: 6px; }
+.taxi-to { font-family: var(--nes-font-display); font-weight: 600; font-size: 20px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.04em; color: var(--nes-white); }
+
+.taxi-copy {
+  position: relative;
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center;
+  width: 100%; min-height: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--nes-bg-plum); border-radius: var(--nes-radius-md);
+  background: var(--nes-bg-navy); color: var(--nes-white);
+  text-align: left; font: inherit; cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.taxi-copy:hover { background: var(--nes-bg-plum); border-color: var(--nes-beige); }
+.taxi-copy:focus-visible { outline: 2px solid var(--nes-cyan); outline-offset: 3px; }
+.taxi-copy-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.taxi-label { font-family: var(--nes-font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--nes-beige); }
+.taxi-addr { font-size: 15px; line-height: 1.4; color: var(--nes-white); }
+.taxi-copy-icon { color: var(--nes-beige); }
+.taxi-hint { grid-column: 1 / -1; font-family: var(--nes-font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--nes-silver); }
+.taxi-hint.ok { color: var(--nes-mint); }
+
+/* ---------- Схема ходу ---------- */
+.block { margin-top: 24px; }
+.eyebrow {
+  margin-bottom: 12px;
+  font-family: var(--nes-font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--nes-beige);
+}
+
+.routemap {
+  height: 260px;
+  border-radius: var(--nes-radius-md);
+  background: var(--nes-black);
+  border: 1px solid rgba(88, 83, 96, .6);
+}
+#map { width: 100%; height: 100%; display: block; }
+
+.river { fill: none; stroke: var(--nes-bg-navy); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+
+.leg-line {
+  fill: none;
+  stroke: var(--nes-bg-plum);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke 300ms ease;
+}
+.leg-line.taxi { stroke-dasharray: 2 7; }
+.leg-line.done { stroke: var(--nes-silver); }
+.leg-line.active { stroke: var(--nes-beige); stroke-width: 3; }
+
+.dot { fill: var(--nes-black); stroke: var(--nes-bg-plum); stroke-width: 2; transition: fill 300ms ease, stroke 300ms ease; }
+.dot.done { fill: var(--nes-silver); stroke: var(--nes-silver); }
+.dot.current { fill: var(--nes-beige); stroke: var(--nes-beige); }
+.river-edge { fill: none; stroke: var(--nes-bg-plum); stroke-width: 1; stroke-linecap: round; opacity: .5; }
+.num { font: 11px var(--nes-font-mono); fill: var(--nes-bg-plum); text-anchor: middle; }
+.num.done { fill: var(--nes-silver); }
+.num.current { fill: var(--nes-beige); font-weight: 700; }
+.lbl { font: 700 11px var(--nes-font-mono); fill: var(--nes-beige); letter-spacing: .08em; text-transform: uppercase; paint-order: stroke; stroke: var(--nes-black); stroke-width: 4px; stroke-linejoin: round; }
+.halo { fill: var(--nes-beige); opacity: .18; transform-box: fill-box; transform-origin: center; }
+
+/* ---------- Google Maps ---------- */
+.gmap {
+  position: relative;
+  height: 220px;
+  border-radius: var(--nes-radius-md);
+  overflow: hidden;
+  background: var(--nes-black);
+  border: 1px solid rgba(88, 83, 96, .6);
+}
+.gmap iframe {
+  width: 100%; height: 100%; border: 0; display: block;
+  pointer-events: none;
+  filter: invert(.92) hue-rotate(180deg) saturate(.5) brightness(.9);
+}
+.gmap-open { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 12px; }
+.chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--nes-black);
+  border: 1px solid var(--nes-bg-plum);
+  color: var(--nes-white);
+  font: 600 13px/1 var(--nes-font-body);
+}
+.gmap-open:hover .chip { background: var(--nes-bg-plum); }
+.gmap-open:focus-visible { outline: 2px solid var(--nes-cyan); outline-offset: -2px; }
+
+.route-btn {
+  margin-top: 12px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px;
+  border-radius: var(--nes-radius-md);
+  border: 1px solid var(--nes-beige);
+  color: var(--nes-beige);
+  font: 600 15px/1 var(--nes-font-body);
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+.route-btn:hover { background: var(--nes-bg-plum); }
+.route-btn:focus-visible { outline: 2px solid var(--nes-cyan); outline-offset: 3px; }
+
+/* ---------- Картка ---------- */
+.card {
+  padding: 24px 24px 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  background: var(--nes-bg-navy);
+  border-radius: var(--nes-radius-lg) var(--nes-radius-lg) 0 0;
+  border: 1px solid rgba(88, 83, 96, .6);
+  border-bottom: 0;
+}
+
+.head { display: flex; align-items: center; gap: 16px; }
+.when { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.until { font-family: var(--nes-font-mono); font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--nes-beige); font-variant-numeric: tabular-nums; }
+.after { font-size: 14px; line-height: 1.35; color: var(--nes-silver); }
+.after b { font-weight: 600; color: var(--nes-white); }
+
+.time {
+  font-family: var(--nes-font-display);
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--nes-cream);
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  margin-top: 12px;
+  font-family: var(--nes-font-display);
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--nes-white);
+}
+
+.leg {
+  margin-top: 8px;
+  font-family: var(--nes-font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--nes-beige);
+}
+.leg:not(:empty)::before { content: "- "; }
+.leg:not(:empty)::after { content: " -"; }
+.leg:empty { display: none; }
+
+.desc { margin-top: 16px; max-width: 34em; color: var(--nes-silver); }
+
+.shelter {
+  margin-top: 16px;
+  padding: 2px 0 2px 14px;
+  border-left: 2px solid var(--nes-cyan);
+  font-size: 14px;
+  color: var(--nes-silver);
+}
+
+/* ---------- Кнопки ---------- */
+.controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  padding: 12px 24px 16px;
+  background: var(--nes-bg-navy);
+}
+
+button {
+  -webkit-appearance: none; appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  font: 600 15px/1 var(--nes-font-body);
+  min-height: 52px;
+  border-radius: var(--nes-radius-md);
+  cursor: pointer;
+  transition: background 150ms ease, opacity 150ms ease;
+}
+
+.back { padding: 0 24px; background: transparent; color: var(--nes-white); border: 1px solid var(--nes-silver); }
+.back:hover:not(:disabled) { background: var(--nes-bg-plum); }
+.back:disabled { opacity: .3; cursor: default; }
+
+.next { background: var(--nes-beige); color: var(--nes-black); border: 0; }
+.next:hover { background: var(--nes-cream); }
+
+button:focus-visible { outline: 2px solid var(--nes-cyan); outline-offset: 3px; }
+
+/* Поява нової точки */
+.card.enter > * { animation: rise 360ms cubic-bezier(.2, .7, .2, 1) both; }
+.card.enter > :nth-child(2) { animation-delay: 60ms; }
+.card.enter > :nth-child(n+3) { animation-delay: 120ms; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.enter > * { animation: none; }
+  .leg-line, .dot, button { transition: none; }
+}
